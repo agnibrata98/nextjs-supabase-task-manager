@@ -1,0 +1,20 @@
+.header {
+    background-color: #1976d2;
+  }
+  
+  .toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .links a {
+    text-decoration: none;
+    margin-left: 10px;
+  }
+  
