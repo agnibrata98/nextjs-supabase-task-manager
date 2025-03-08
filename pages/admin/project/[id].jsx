@@ -173,6 +173,7 @@ import {
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useRouter } from 'next/router';
+import toast from 'react-hot-toast';
 
 const TaskCard = ({ task, moveTask }) => {
   const [{ isDragging }, drag] = useDrag(() => ({
@@ -264,7 +265,7 @@ const fetchProjectDetails = async () => {
         .from('projects')
         .select(`
           *,
-          assigned_user_id (
+          created_by (
             name,
             email
           )
@@ -277,7 +278,7 @@ const fetchProjectDetails = async () => {
       console.log('Fetched project:', data); // Debugging here
   
       setProject(data);
-      setUser(data.assigned_user_id); // Use the correct reference to the user data
+      setUser(data.created_by); // Use the correct reference to the user data
     } catch (error) {
       console.error('Error fetching project details:', error.message);
     } finally {
@@ -309,10 +310,14 @@ const fetchProjectDetails = async () => {
         .eq('id', taskId);
 
       if (error) throw error;
-
+      else{
+        // console.log("Task moved successfully");
+        toast.success("Task status updated successfully to " + newStatus);
+      }
       fetchTasks();
     } catch (error) {
-      console.error('Error moving task:', error.message);
+      // console.error('Error moving task:', error.message);
+      toast.error('Error moving task:', error.message)
     }
   };
 

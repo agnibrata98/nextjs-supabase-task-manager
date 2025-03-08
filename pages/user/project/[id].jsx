@@ -157,6 +157,7 @@ import {
 } from '@mui/material';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import toast from 'react-hot-toast';
 
 const ItemType = {
   TASK: 'task',
@@ -278,9 +279,10 @@ const ProjectDetailsPage = () => {
   
     if (error) {
       console.error("Supabase Error:", error.message);
+      toast.error("Error updating task status: " + error.message);
     } else {
       console.log("Task status updated successfully.");
-      alert("Task status updated successfully to " + newStatus);
+      toast.success("Task status updated successfully to " + newStatus);
       fetchTasks();
     }
   };
